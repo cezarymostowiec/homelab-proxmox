@@ -1,0 +1,27 @@
+# kube / local
+.kube/
+*.kubeconfig
+admin.conf
+
+# secrets / certs
+*.key
+*.crt
+*.pem
+*.p12
+*.pfx
+secrets*.yaml
+secret*.yaml
+
+# temp / editor
+*.swp
+*.swo
+*~
+.DS_Store
+
+# logs
+*.log
+
+# terraform / misc if added later
+.terraform/
+terraform.tfstate
+terraform.tfstate.*

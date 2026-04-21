@@ -1,0 +1,27 @@
+controller:
+  replicaCount: 2
+
+  ingressClassResource:
+    name: nginx
+    enabled: true
+    default: true
+
+  ingressClass: nginx
+
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+
+  metrics:
+    enabled: true
+
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+  config:
+    use-forwarded-headers: "true"
+    compute-full-forwarded-for: "true"
+
+  admissionWebhooks:
+    enabled: true
