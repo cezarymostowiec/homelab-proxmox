@@ -1,0 +1,54 @@
+alertmanager:
+  enabled: false
+
+grafana:
+  enabled: true
+  replicas: 1
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.lab.local
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.lab.local
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+
+prometheus:
+  prometheusSpec:
+    retention: 7d
+    replicas: 1
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 100m
+      limits:
+        memory: 700Mi
+        cpu: 500m
+
+prometheusOperator:
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 50m
+    limits:
+      memory: 250Mi
+      cpu: 200m
+
+kubeStateMetrics:
+  resources:
+    requests:
+      memory: 50Mi
+      cpu: 20m
+    limits:
+      memory: 150Mi
+      cpu: 100m
+
+prometheus-node-exporter:
+  enabled: true
+
+defaultRules:
+  create: true
