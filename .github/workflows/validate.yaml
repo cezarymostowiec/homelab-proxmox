@@ -1,0 +1,41 @@
+name: Validate Kubernetes repo
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install yamllint
+
+      - name: Run yamllint
+        run: |
+          yamllint -d "{extends: default, rules: {line-length: disable, document-start: disable}}" k8s
+
+  validate-argocd-manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Argo CD app manifests exist and parse
+        run: |
+          find k8s -type f \( -name "argocd-app.yaml" -o -name "*.yaml" -o -name "*.yml" \) | while read f; do
+            python3 - <<'PY' "$f"
+import sys, yaml
+path = sys.argv[1]
+with open(path, "r") as fh:
+    list(yaml.safe_load_all(fh))
+print(f"OK: {path}")
+PY
+          done
