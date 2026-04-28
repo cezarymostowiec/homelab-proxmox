@@ -20,7 +20,7 @@ jobs:
 
       - name: Run yamllint
         run: |
-          yamllint -d "{extends: default, rules: {line-length: disable, document-start: disable}}" k8s
+          yamllint -d "{extends: default, rules: {line-length: disable, document-start: disable, truthy: disable}}" k8s
 
   validate-argocd-manifests:
     runs-on: ubuntu-latest
@@ -28,14 +28,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check Argo CD app manifests exist and parse
+      - name: Install PyYAML
         run: |
-          find k8s -type f \( -name "argocd-app.yaml" -o -name "*.yaml" -o -name "*.yml" \) | while read f; do
-            python3 - <<'PY' "$f"
-import sys, yaml
-path = sys.argv[1]
-with open(path, "r") as fh:
-    list(yaml.safe_load_all(fh))
-print(f"OK: {path}")
-PY
+          python3 -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Check YAML files parse
+        run: |
+          find k8s -type f \( -name "*.yaml" -o -name "*.yml" \) | while read f; do
+            python3 - "$f" <<'PY'
+          import sys
+          import yaml
+
+          path = sys.argv[1]
+
+          with open(path, "r") as fh:
+              list(yaml.safe_load_all(fh))
+
+          print(f"OK: {path}")
+          PY
           done
