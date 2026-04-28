@@ -2,8 +2,11 @@ deploymentMode: SimpleScalable
 
 loki:
   auth_enabled: false
+    
+  commonConfig:
+    replication_factor: 1
 
-  schemaConfig:
+ i schemaConfig:
     configs:
       - from: "2024-04-01"
         store: tsdb
