@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: storage
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: local-path-storage
+
+  sources:
+    - repoURL: https://charts.containeroo.ch
+      chart: local-path-provisioner
+      targetRevision: 0.0.33
+      helm:
+        valueFiles:
+          - $values/k8s/infra/storage/values.yaml
+
+    - repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
+      targetRevision: main
+      ref: values
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
