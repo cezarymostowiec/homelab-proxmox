@@ -1,0 +1,23 @@
+main:
+  config:
+    n8n:
+      basicAuth:
+        active: true
+        user: admin
+        password: admin123
+
+  persistence:
+    enabled: true
+    size: 5Gi
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: n8n.lab.local
+      paths:
+        - path: /
+          pathType: Prefix
