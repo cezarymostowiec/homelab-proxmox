@@ -11,9 +11,9 @@ spec:
     namespace: n8n
 
   sources:
-    - repoURL: https://8gears.github.io/n8n-helm-chart/
+    - repoURL: 8gears.container-registry.com/library
       chart: n8n
-      targetRevision: 0.18.0
+      targetRevision: 2.0.1
       helm:
         valueFiles:
           - $values/k8s/infra/n8n/values.yaml
