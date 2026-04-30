@@ -16,8 +16,17 @@ service:
 ingress:
   enabled: true
   className: nginx
+
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+
   hosts:
     - host: n8n.lab.local
       paths:
         - path: /
           pathType: Prefix
+
+  tls:
+    - hosts:
+        - n8n.lab.local
+      secretName: n8n-tls
