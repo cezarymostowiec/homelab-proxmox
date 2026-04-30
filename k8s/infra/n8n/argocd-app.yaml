@@ -10,18 +10,14 @@ spec:
     server: https://kubernetes.default.svc
     namespace: n8n
 
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: n8n
-    targetRevision: latest
-    helm:
-      valueFiles:
-        - $values/k8s/infra/n8n/values.yaml
-
   sources:
-    - repoURL: https://charts.bitnami.com/bitnami
+    - repoURL: https://8gears.github.io/n8n-helm-chart/
       chart: n8n
-      targetRevision: latest
+      targetRevision: 0.18.0
+      helm:
+        valueFiles:
+          - $values/k8s/infra/n8n/values.yaml
+
     - repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
       targetRevision: main
       ref: values
