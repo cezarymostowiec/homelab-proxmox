@@ -11,17 +11,17 @@ spec:
     namespace: n8n
 
   source:
-    repoURL: https://8gears.container-registry.com/chartrepo/library
+    repoURL: https://charts.bitnami.com/bitnami
     chart: n8n
-    targetRevision: 0.18.0
+    targetRevision: latest
     helm:
       valueFiles:
         - $values/k8s/infra/n8n/values.yaml
 
   sources:
-    - repoURL: https://8gears.container-registry.com/chartrepo/library
+    - repoURL: https://charts.bitnami.com/bitnami
       chart: n8n
-      targetRevision: 0.18.0
+      targetRevision: latest
     - repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
       targetRevision: main
       ref: values
