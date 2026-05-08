@@ -5,11 +5,9 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
   destination:
     server: https://kubernetes.default.svc
     namespace: n8n
-
   sources:
     - repoURL: 8gears.container-registry.com/library
       chart: n8n
@@ -17,11 +15,12 @@ spec:
       helm:
         valueFiles:
           - $values/k8s/infra/n8n/values.yaml
-
     - repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
       targetRevision: main
       ref: values
-
+    - repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
+      targetRevision: main
+      path: k8s/infra/n8n/manifests
   syncPolicy:
     automated:
       prune: true
