@@ -4,28 +4,27 @@ main:
       basicAuth:
         active: true
         user: admin
-        password: admin123
-
+  extraEnv:
+    - name: N8N_BASIC_AUTH_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: n8n-credentials
+          key: N8N_BASIC_AUTH_PASSWORD
   persistence:
     enabled: true
     size: 5Gi
-
 service:
   type: ClusterIP
-
 ingress:
   enabled: true
   className: nginx
-
   annotations:
     cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
-
   hosts:
     - host: n8n.lab.local
       paths:
         - path: /
           pathType: Prefix
-
   tls:
     - hosts:
         - n8n.lab.local
