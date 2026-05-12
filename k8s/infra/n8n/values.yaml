@@ -12,9 +12,13 @@ main:
           key: N8N_BASIC_AUTH_PASSWORD
   persistence:
     enabled: true
+    type: dynamic
+    storageClass: local-path
     size: 5Gi
+
 service:
   type: ClusterIP
+
 ingress:
   enabled: true
   className: nginx
