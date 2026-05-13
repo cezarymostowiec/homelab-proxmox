@@ -1,20 +1,22 @@
+credentials:
+  existingSecret: velero-credentials
+
 configuration:
   backupStorageLocation:
     - name: default
       provider: aws
       bucket: velero-backups
+      credential:
+        name: velero-credentials
+        key: cloud
       config:
         region: minio
         s3ForcePathStyle: "true"
         s3Url: http://minio.minio.svc.cluster.local:9000
-        publicUrl: https://minio.lab.local
-
-credentials:
-  existingSecret: velero-credentials
 
 initContainers:
   - name: velero-plugin-for-aws
-    image: velero/velero-plugin-for-aws:v1.10.0
+    image: velero/velero-plugin-for-aws:v1.11.0
     volumeMounts:
       - mountPath: /target
         name: plugins
