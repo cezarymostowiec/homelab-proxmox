@@ -1,0 +1,47 @@
+mode: standalone
+
+rootUser: minioadmin
+rootPassword: minioadmin123
+
+persistence:
+  enabled: true
+  storageClass: local-path
+  size: 10Gi
+
+resources:
+  requests:
+    memory: 256Mi
+  limits:
+    memory: 512Mi
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+  hosts:
+    - minio.lab.local
+  tls:
+    - hosts:
+        - minio.lab.local
+      secretName: minio-tls
+
+consoleIngress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+  hosts:
+    - minio-console.lab.local
+  tls:
+    - hosts:
+        - minio-console.lab.local
+      secretName: minio-console-tls
+
+buckets:
+  - name: velero-backups
+    policy: none
+  - name: loki-chunks
+    policy: none
+  - name: vault-snapshots
+    policy: none
