@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: https://vmware-tanzu.github.io/helm-charts
       chart: velero
-      targetRevision: "8.1.0"
+      targetRevision: "7.2.1"
       helm:
         valueFiles:
           - $values/k8s/infra/velero/values.yaml
