@@ -1,0 +1,38 @@
+server:
+  dev:
+    enabled: false
+  ha:
+    enabled: false
+  dataStorage:
+    enabled: true
+    storageClass: local-path
+    size: 2Gi
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+    hosts:
+      - host: vault.lab.local
+        paths:
+          - /
+    tls:
+      - hosts:
+          - vault.lab.local
+        secretName: vault-tls
+  resources:
+    requests:
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+
+ui:
+  enabled: true
+
+injector:
+  enabled: true
+  resources:
+    requests:
+      memory: 64Mi
+    limits:
+      memory: 128Mi
