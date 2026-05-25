@@ -7,17 +7,11 @@ spec:
   project: default
   destination:
     server: https://kubernetes.default.svc
-    namespace: rabbitmq-system
-  sources:
-    - repoURL: https://charts.bitnami.com/bitnami
-      chart: rabbitmq-cluster-operator
-      targetRevision: "4.4.34"
-      helm:
-        valueFiles:
-          - $values/k8s/infra/rabbitmq/values.yaml
-    - repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
-      targetRevision: main
-      ref: values
+    namespace: rabbitmq
+  source:
+    repoURL: https://github.com/cezarymostowiec/homelab-proxmox.git
+    targetRevision: main
+    path: k8s/infra/rabbitmq/manifests
   syncPolicy:
     automated:
       prune: true
