@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: https://charts.bitnami.com/bitnami
       chart: rabbitmq
-      targetRevision: "16.0.14"
+      targetRevision: "15.5.3"
       helm:
         valueFiles:
           - $values/k8s/infra/rabbitmq/values.yaml
