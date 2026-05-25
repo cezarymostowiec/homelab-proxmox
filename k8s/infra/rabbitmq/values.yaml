@@ -1,33 +1,14 @@
-auth:
-  username: admin
-  password: admin123
-  erlangCookie: "secreterlangcookie"
+clusterOperator:
+  resources:
+    requests:
+      memory: 128Mi
+    limits:
+      memory: 256Mi
 
-persistence:
+msgTopologyOperator:
   enabled: true
-  storageClass: local-path
-  size: 2Gi
-
-resources:
-  requests:
-    memory: 256Mi
-  limits:
-    memory: 512Mi
-
-metrics:
-  enabled: true
-  serviceMonitor:
-    enabled: true
-    namespace: monitoring
-
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
-  hostname: rabbitmq.lab.local
-  tls: true
-  extraTls:
-    - hosts:
-        - rabbitmq.lab.local
-      secretName: rabbitmq-tls
+  resources:
+    requests:
+      memory: 128Mi
+    limits:
+      memory: 256Mi
