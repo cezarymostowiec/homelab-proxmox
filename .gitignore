@@ -25,3 +25,8 @@ secret*.yaml
 .terraform/
 terraform.tfstate
 terraform.tfstate.*
+*.tar.gz
+*.zip
+kubeseal
+velero
+velero-*/
